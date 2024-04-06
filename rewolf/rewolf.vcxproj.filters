@@ -1,17 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{b00091c8-20e0-4452-ace3-47df7757bfab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util\driver">
+      <UniqueIdentifier>{466227ef-488c-4739-8bb0-c0ec8e2ae326}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util\game">
+      <UniqueIdentifier>{c90c870c-2327-495d-9668-e39baf6c4d6e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="util\game\game.cpp">
+      <Filter>util\game</Filter>
+    </ClCompile>
+    <ClCompile Include="util\driver\driver.cpp">
+      <Filter>util\driver</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="util\game\game.hpp">
+      <Filter>util\game</Filter>
+    </ClInclude>
+    <ClInclude Include="util\util.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\driver\driver.hpp">
+      <Filter>util\driver</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
