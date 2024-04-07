@@ -1,12 +1,6 @@
 #pragma once
 
-#include <Windows.h>
-#include <thread>
-#include <optional>
-#include <vector>
-#include <array>
-
-#include "../util.hpp"
+#include "..\util.hpp"
 
 namespace driver_util {
 
@@ -77,6 +71,6 @@ namespace driver_util {
     [[nodiscard]] std::size_t get_modproc_phys_addr(const driver& drv, const char* module_name, const char* proc_name);
 
 
-    void hook_ntproc(driver drv, std::uint64_t phys_addr);
+    void hook_ntproc(const driver& drv, std::uint64_t phys_addr);
 
 }

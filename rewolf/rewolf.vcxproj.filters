@@ -34,5 +34,8 @@
     <ClInclude Include="util\driver\driver.hpp">
       <Filter>util\driver</Filter>
     </ClInclude>
+    <ClInclude Include="include.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

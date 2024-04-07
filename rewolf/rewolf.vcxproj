@@ -134,6 +134,7 @@
     <ClCompile Include="util\game\game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include.hpp" />
     <ClInclude Include="util\driver\driver.hpp" />
     <ClInclude Include="util\game\game.hpp" />
     <ClInclude Include="util\util.hpp" />
