@@ -98,8 +98,6 @@ namespace driver_util {
         const auto mmgetphysicaladdress_loc = GetProcAddress(hmod, "MmGetPhysicalAddress");
         std::int32_t thing = reinterpret_cast<std::int64_t>(mmgetphysicaladdress_loc) - reinterpret_cast<std::int64_t>(ntreadfilescatter_loc);
         *reinterpret_cast<std::int32_t*>(&bytes[1]) = thing;
-        if (bytes[1] == 0)
-            return;
         if (const auto res = drv.write_phys_mem<char[6]>(phys_addr, bytes, 6); !res)
             return;
         util::log("Hooked NtReadFileScatter at %X", phys_addr);
