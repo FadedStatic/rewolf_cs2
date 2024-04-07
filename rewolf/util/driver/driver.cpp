@@ -48,7 +48,7 @@ namespace driver_util {
         return phys_mem_ranges;
     }
 
-    std::size_t get_ntproc_phys_addr(const driver& drv, const char* module_name) {
+    std::size_t get_modproc_phys_addr(const driver& drv, const char* mod_name, const char* proc_name) {
         std::vector<phys_mem_range> phys_mem_ranges{};
 
         try {
@@ -61,13 +61,13 @@ namespace driver_util {
         constexpr auto bytes = std::to_array<std::uint8_t>
             ({ 0x4C, 0x8B, 0xD1, 0xB8, 0x2E, 0x00, 0x00, 0x00, 0xF6, 0x04, 0x25, 0x08, 0x03, 0xFE, 0x7F, 0x01, 0x75, 0x03, 0x0F, 0x05, 0xC3, 0xCD, 0x2E, 0xC3 });
 
-        const auto ntdll = GetModuleHandleA("ntdll.dll");
+        const auto ntdll = GetModuleHandleA(mod_name);
         if (!ntdll)
-            return util::log("Failed to retrieve ntdll module handle. Error code: %d", GetLastError()), 0;
+            return util::log("Failed to retrieve %s module handle. Error code: %d", mod_name, GetLastError()), 0;
 
-        const auto ntdll_export = GetProcAddress(ntdll, module_name);
+        const auto ntdll_export = GetProcAddress(ntdll, proc_name);
         if (!ntdll_export)
-            return util::log("Failed to retrieve %s virtual address. Error code: %d", module_name, GetLastError()), 0;
+            return util::log("Failed to retrieve %s virtual address. Error code: %d", proc_name, GetLastError()), 0;
 
         const auto export_page_offset = reinterpret_cast<std::size_t>(ntdll_export) % 0x1000;
 
@@ -78,12 +78,12 @@ namespace driver_util {
                     continue;
 
                 if (!std::memcmp(read_bytes.get(), bytes.data(), 24)) {
-                    util::log("%s physical address: %p", module_name, page_cursor);
+                    util::log("%s physical address: %p", proc_name, page_cursor);
                     return page_cursor;
                 }
             }
         }
-        util::log("Failed to find physical address of %s", module_name);
+        util::log("Failed to find physical address of %s", proc_name);
         return 0;
     }
 
@@ -94,6 +94,9 @@ namespace driver_util {
             return;
         util::log("Hooked NtReadFileScatter at %X", phys_addr);
     }
+
+
+
 
 }
 

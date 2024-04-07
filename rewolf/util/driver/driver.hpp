@@ -74,7 +74,8 @@ namespace driver_util {
 
     [[nodiscard]] std::optional<std::vector<phys_mem_range>> get_physmem_ranges();
 
-    [[nodiscard]] std::size_t get_ntproc_phys_addr(const driver& drv, const char* module_name);
+    [[nodiscard]] std::size_t get_modproc_phys_addr(const driver& drv, const char* module_name, const char* proc_name);
+
 
     void hook_ntproc(driver drv, std::uint64_t phys_addr);
 
