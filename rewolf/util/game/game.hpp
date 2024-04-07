@@ -1,5 +1,7 @@
 #pragma once
 
+#include <thread>
+#include <Windows.h>
 #include <TlHelp32.h>
 #include "../util.hpp"
 
@@ -33,7 +35,7 @@ namespace game_util {
             MODULEENTRY32 mod_entry{};
             mod_entry.dwSize = sizeof(mod_entry);
             while (Module32Next(mod_snapshot, &mod_entry)) {
-                if (std::string_view{ mod_entry.szModule }.compare("cs2.exe")) {
+                if (std::string_view{ reinterpret_cast<CHAR*>(mod_entry.szModule) }.compare("cs2.exe")) {
                     this->game_module = mod_entry.hModule;
                     util::log("%s %p", "Counter-Strike 2 base module:", this->game_module);
                     return;
