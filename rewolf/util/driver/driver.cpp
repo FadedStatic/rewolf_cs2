@@ -59,7 +59,8 @@ namespace driver_util {
         }
 
         constexpr auto bytes = std::to_array<std::uint8_t>
-            ({ 0x4C, 0x8B, 0xD1, 0xB8, 0x2E, 0x00, 0x00, 0x00, 0xF6, 0x04, 0x25, 0x08, 0x03, 0xFE, 0x7F, 0x01, 0x75, 0x03, 0x0F, 0x05, 0xC3, 0xCD, 0x2E, 0xC3 });
+            ({ 0x48, 0x8B, 0xC4, 0x4C, 0x89, 0x48, 0x20, 0x4C, 0x89, 0x40, 0x18, 0x48, 0x89, 0x50, 0x10, 0x53, 0x56, 0x57, 0x41, 0x54, 0x41, 0x55, 0x41, 0x56 });
+            //({ 0x4C, 0x8B, 0xD1, 0xB8, 0x2E, 0x00, 0x00, 0x00, 0xF6, 0x04, 0x25, 0x08, 0x03, 0xFE, 0x7F, 0x01, 0x75, 0x03, 0x0F, 0x05, 0xC3, 0xCD, 0x2E, 0xC3 });
 
         const auto ntdll = GetModuleHandleA(mod_name);
         if (!ntdll)
@@ -70,7 +71,7 @@ namespace driver_util {
             return util::log("Failed to retrieve %s virtual address. Error code: %d", proc_name, GetLastError()), 0;
 
         const auto export_page_offset = reinterpret_cast<std::size_t>(ntdll_export) % 0x1000;
-
+        std::vector<std::size_t> ret;
         for (auto& [range_start, range_length] : phys_mem_ranges) {
             for (std::size_t page_cursor = range_start + export_page_offset; page_cursor < (range_start + range_length); page_cursor += 0x1000) {
                 const auto read_bytes = std::unique_ptr<char>(drv.read_phys_mem(page_cursor, 24));
@@ -79,24 +80,29 @@ namespace driver_util {
 
                 if (!std::memcmp(read_bytes.get(), bytes.data(), 24)) {
                     util::log("%s physical address: %p", proc_name, page_cursor);
-                    return page_cursor;
+                    ret.push_back(page_cursor);
                 }
             }
         }
+        if (!ret.empty())
+            return ret[0];
         util::log("Failed to find physical address of %s", proc_name);
         return 0;
     }
 
     void hook_ntproc(driver drv, std::uint64_t phys_addr) {
-        char bytes[]{ 0x68, 0x00, 0x00, 0x00, 0x00, '\xC3' };
-
+        char bytes[]{ '\xE9', 0x00, 0x00, 0x00, 0x00, '\xC3' };
+        
+        const auto hmod = GetModuleHandleA("ntoskrnl.exe");
+        const auto ntreadfilescatter_loc = GetProcAddress(hmod, "NtReadFileScatter");
+        const auto mmgetphysicaladdress_loc = GetProcAddress(hmod, "MmGetPhysicalAddress");
+        std::int32_t thing = reinterpret_cast<std::int64_t>(mmgetphysicaladdress_loc) - reinterpret_cast<std::int64_t>(ntreadfilescatter_loc);
+        *reinterpret_cast<std::int32_t*>(&bytes[1]) = thing;
+        if (bytes[1] == 0)
+            return;
         if (const auto res = drv.write_phys_mem<char[6]>(phys_addr, bytes, 6); !res)
             return;
         util::log("Hooked NtReadFileScatter at %X", phys_addr);
     }
-
-
-
-
 }
 

@@ -16,13 +16,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="util\game\game.cpp">
       <Filter>util\game</Filter>
     </ClCompile>
     <ClCompile Include="util\driver\driver.cpp">
       <Filter>util\driver</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\game\game.hpp">
