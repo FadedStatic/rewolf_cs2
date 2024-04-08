@@ -70,7 +70,7 @@ namespace driver_util {
 
     [[nodiscard]] bool driver::hk_pa(std::size_t target_hk_pa, const char* target_nt_proc) {
         util::log("Hooking NT procedure...");
-        char bytes[]{ 0x48, 0xB8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xE0 };
+        char bytes[]{ 0x48, '\xB8', 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, '\xFF', '\xE0'};
 
         const auto nt_proc_va = reinterpret_cast<std::uint64_t>(GetProcAddress(this->kernel_handle, target_nt_proc));
         if (!nt_proc_va)
