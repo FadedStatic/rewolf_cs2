@@ -108,7 +108,7 @@ namespace driver_util {
             return pa;
         }
 
-        std::size_t get_mod_base_addr(const char* mod);
+        static std::size_t get_mod_base_addr(const char* mod);
         [[nodiscard]] bool hk_pa(std::size_t, const char*);
         [[nodiscard]] bool unhk_pa() const;
         [[nodiscard]] std::size_t get_ntproc_pa(const char*);
