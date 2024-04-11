@@ -68,6 +68,48 @@ namespace driver_util {
         return 0;
     }
 
+    typedef struct SYSTEM_MODULE {
+        ULONG                Reserved1;
+        ULONG                Reserved2;
+#ifdef _WIN64
+        ULONG				Reserved3;
+#endif
+        PVOID                ImageBaseAddress;
+        ULONG                ImageSize;
+        ULONG                Flags;
+        WORD                 Id;
+        WORD                 Rank;
+        WORD                 w018;
+        WORD                 NameOffset;
+        CHAR                 Name[260];
+    }SYSTEM_MODULE, * PSYSTEM_MODULE;
+
+    typedef struct SYSTEM_MODULE_INFORMATION {
+        ULONG                ModulesCount;
+        SYSTEM_MODULE        Modules[1];
+    } SYSTEM_MODULE_INFORMATION, * PSYSTEM_MODULE_INFORMATION;
+
+
+    std::size_t driver::get_mod_base_addr(const char* mod)
+    {
+        ULONG retn;
+        NtQuerySystemInformation(static_cast<SYSTEM_INFORMATION_CLASS>(0xB), nullptr, 0, &retn);
+        const auto minf = static_cast<PSYSTEM_MODULE_INFORMATION>(GlobalAlloc(GMEM_ZEROINIT, retn));
+        util::log("%X", NtQuerySystemInformation(static_cast<SYSTEM_INFORMATION_CLASS>(0xB), minf, sizeof SYSTEM_MODULE_INFORMATION, &retn));
+        for (unsigned int i = 0; i < minf->ModulesCount; i++) {
+            PVOID kernelImageBase = minf->Modules[i].ImageBaseAddress;
+            const auto kernelImage = reinterpret_cast<PCHAR>(minf->Modules[i].Name);
+            std::string final;
+            for (int j = 0; kernelImage[j] != '\x00' && j < 260; j++)
+                final.append(std::format("{:02X}", kernelImage[j]));
+            if (final.empty())
+                continue;
+            util::log("Mod name %s", final.c_str());
+            util::log("Base Addr 0x%llx\r\n", kernelImageBase);
+        }
+        return 0;
+    }
+
     [[nodiscard]] bool driver::hk_pa(std::size_t target_hk_pa, const char* target_nt_proc) {
         util::log("Hooking NT procedure...");
         char bytes[]{ 0x48, '\xB8', 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, '\xFF', '\xE0'};
@@ -102,12 +144,11 @@ namespace driver_util {
 
         std::uint8_t buf[hook_sz]{};
         std::memcpy(buf, this->original_instr, hook_sz);
-
-        const auto res = write_phys_mem<hook_sz>(this->hk_addr, buf);
+		const auto res = write_phys_mem<hook_sz>(this->hk_addr, buf);
 
         delete[] this->original_instr;
         if (!res)
-            return util::log("Failed to unhook NT procedure"), false;
+           return util::log("Failed to unhook NT procedure"), false;
         util::log("Unhooked native procedure");
         return true;
 

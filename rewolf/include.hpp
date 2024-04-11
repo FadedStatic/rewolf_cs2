@@ -12,3 +12,5 @@
 // Windows Headers
 #include <Windows.h>
 #include <TlHelp32.h>
+#include <winternl.h>
+#include <format>
