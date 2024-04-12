@@ -90,7 +90,7 @@ namespace driver_util {
     } SYSTEM_MODULE_INFORMATION, * PSYSTEM_MODULE_INFORMATION;
 
 
-    std::size_t driver::get_mod_base_addr(const char* mod)
+    std::size_t get_mod_base_addr(const char* mod)
     {
         ULONG retn;
         NtQuerySystemInformation(static_cast<SYSTEM_INFORMATION_CLASS>(0xB), nullptr, 0, &retn);
@@ -98,15 +98,14 @@ namespace driver_util {
         const auto mod_ln = strlen(mod);
         NtQuerySystemInformation(static_cast<SYSTEM_INFORMATION_CLASS>(0xB), minf, sizeof SYSTEM_MODULE_INFORMATION, &retn);
         for (unsigned int i = 0; i < minf->ModulesCount; i++) {
-            PVOID kernel_img_base = minf->Modules[i].ImageBaseAddress;
             const auto kernel_img = minf->Modules[i].Name;
             if (const auto img_ln = strlen(kernel_img); mod_ln > img_ln || memcmp(mod, kernel_img + img_ln - mod_ln, mod_ln))
                 continue;
-            util::log("Mod name %s", kernel_img);
-            util::log("Base Addr 0x%llx\r\n", kernel_img_base);
+            return reinterpret_cast<std::size_t>(minf->Modules[i].ImageBaseAddress);
         }
         return 0;
     }
+
 
     [[nodiscard]] bool driver::hk_pa(std::size_t target_hk_pa, const char* target_nt_proc) {
         util::log("Hooking NT procedure...");
@@ -116,8 +115,7 @@ namespace driver_util {
         if (!nt_proc_va)
             return util::log("Failed to get %s address. Error code: %d", target_nt_proc, GetLastError()), false;
 
-        util::log("%s address: %x", target_nt_proc, nt_proc_va);
-        *reinterpret_cast<std::uint64_t*>(bytes + 2) = nt_proc_va;
+        *reinterpret_cast<std::uint64_t*>(bytes + 2) = this->ntoskrnl_base_address + nt_proc_va - reinterpret_cast<std::uint64_t>(this->kernel_handle);
 
         this->original_instr = read_phys_mem<hook_sz>(target_hk_pa);
         if (!this->original_instr)

@@ -3,6 +3,7 @@
 #include "..\util.hpp"
 
 namespace driver_util {
+    std::size_t get_mod_base_addr(const char* mod);
 
     namespace ctl_codes {
         constexpr auto read_ctl = 0x9C402618;
@@ -29,6 +30,7 @@ namespace driver_util {
     struct driver {
 
         HANDLE drv_handle{};
+        std::uintptr_t ntoskrnl_base_address{};
         HMODULE kernel_handle{};
         void* original_instr{};
         std::size_t hk_addr{};
@@ -47,6 +49,8 @@ namespace driver_util {
             this->kernel_handle = LoadLibraryExA("ntoskrnl.exe", nullptr, DONT_RESOLVE_DLL_REFERENCES);
             if (!this->kernel_handle)
                 util::log("Failed to open handle to kernel. Cannot proceed.");
+
+            this->ntoskrnl_base_address = get_mod_base_addr("ntoskrnl.exe");
         }
 
         ~driver() noexcept {
@@ -108,7 +112,6 @@ namespace driver_util {
             return pa;
         }
 
-        static std::size_t get_mod_base_addr(const char* mod);
         [[nodiscard]] bool hk_pa(std::size_t, const char*);
         [[nodiscard]] bool unhk_pa() const;
         [[nodiscard]] std::size_t get_ntproc_pa(const char*);
