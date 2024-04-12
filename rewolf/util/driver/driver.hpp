@@ -104,12 +104,12 @@ namespace driver_util {
 
             util::log("Calling %s", dummy_proc.second);
 
-            const auto call = reinterpret_cast<ret_t(__stdcall*)(args_t...)>(nt_proc);
-            const auto pa = call(std::forward< args_t >(args)...);
+            //const auto call = reinterpret_cast<ret_t(__stdcall*)(args_t...)>(nt_proc);
+            //const auto pa = call(std::forward< args_t >(args)...);
             std::this_thread::sleep_for(std::chrono::seconds(3));
-            const auto unhk_res = unhk_pa();
-
-            return pa;
+            //const auto unhk_res = unhk_pa();
+            //
+            return 0;
         }
 
         [[nodiscard]] bool hk_pa(std::size_t, const char*);

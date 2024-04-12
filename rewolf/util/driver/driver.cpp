@@ -124,8 +124,6 @@ namespace driver_util {
         const auto res = write_phys_mem<hook_sz>(target_hk_pa, bytes);
         if (!res)
             return false;
-        const auto read_bytes = read_phys_mem<12>(target_hk_pa);
-        util::log("fx: %X", *reinterpret_cast<std::uint64_t*>(bytes + 2));
 
         this->hk_addr = target_hk_pa;
         util::log("Hooked at %X", target_hk_pa);
