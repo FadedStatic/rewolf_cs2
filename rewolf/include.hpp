@@ -14,3 +14,4 @@
 #include <TlHelp32.h>
 #include <winternl.h>
 #include <format>
+#include <winsvc.h>
