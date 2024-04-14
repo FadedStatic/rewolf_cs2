@@ -7,6 +7,8 @@
 #include <memory>
 #include <vector>
 #include <thread>
+#include <utility>
+#include <type_traits>
 #include <string>
 #include <string_view>
 // Windows Headers
