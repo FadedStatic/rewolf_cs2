@@ -106,6 +106,10 @@ namespace driver_util {
         return 0;
     }
 
+    std::size_t get_process_base_addr(const char* process)
+    {
+        ULONG retn;
+    }
 
     [[nodiscard]] bool driver::hook_medium(const char* target_nt_proc) {
         util::log("Hooking NT procedure...");

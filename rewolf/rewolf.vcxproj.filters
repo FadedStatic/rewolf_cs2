@@ -14,6 +14,9 @@
     <Filter Include="util\game">
       <UniqueIdentifier>{c90c870c-2327-495d-9668-e39baf6c4d6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="util\overlay">
+      <UniqueIdentifier>{a5b3ff7d-8f3c-4dc4-90a2-86a531f90529}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\game\game.cpp">
@@ -23,6 +26,7 @@
       <Filter>util\driver</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="util\overlay\overlay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\game\game.hpp">
@@ -36,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="include.hpp">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\overlay\overlay.hpp">
+      <Filter>util\overlay</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
