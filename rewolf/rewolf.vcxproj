@@ -46,7 +46,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="libs\scanner\scanner.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="util\driver\driver.cpp" />
     <ClCompile Include="util\game\game.cpp" />
@@ -138,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include.hpp" />
+    <ClInclude Include="libs\scanner\scanner.hpp" />
     <ClInclude Include="util\driver\driver.hpp" />
     <ClInclude Include="util\game\game.hpp" />
     <ClInclude Include="util\overlay\overlay.hpp" />

@@ -17,6 +17,12 @@
     <Filter Include="util\overlay">
       <UniqueIdentifier>{a5b3ff7d-8f3c-4dc4-90a2-86a531f90529}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{f4944be2-c067-40fb-8f44-5c3114a486b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\scanner">
+      <UniqueIdentifier>{19a5a947-e500-4dc8-a91c-24857d2866a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\game\game.cpp">
@@ -26,7 +32,12 @@
       <Filter>util\driver</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="util\overlay\overlay.cpp" />
+    <ClCompile Include="util\overlay\overlay.cpp">
+      <Filter>util\overlay</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\scanner\scanner.cpp">
+      <Filter>libs\scanner</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\game\game.hpp">
@@ -43,6 +54,9 @@
     </ClInclude>
     <ClInclude Include="util\overlay\overlay.hpp">
       <Filter>util\overlay</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\scanner\scanner.hpp">
+      <Filter>libs\scanner</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
