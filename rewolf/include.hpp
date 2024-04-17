@@ -10,11 +10,12 @@
 #include <utility>
 #include <type_traits>
 #include <string>
+#include <format>
 #include <string_view>
 // Windows Headers
 #include <Windows.h>
 #include <TlHelp32.h>
 #include <winternl.h>
-#include <format>
 #include <winsvc.h>
 #include <psapi.h>
+#include <d3d11.h>

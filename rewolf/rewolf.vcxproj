@@ -131,6 +131,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="libs\minhook\buffer.cpp" />
+    <ClCompile Include="libs\minhook\hde\hde32.cpp" />
+    <ClCompile Include="libs\minhook\hde\hde64.cpp" />
+    <ClCompile Include="libs\minhook\hook.cpp" />
+    <ClCompile Include="libs\minhook\trampoline.cpp" />
     <ClCompile Include="libs\scanner\scanner.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="util\driver\driver.cpp" />
@@ -139,6 +144,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include.hpp" />
+    <ClInclude Include="libs\minhook\buffer.hpp" />
+    <ClInclude Include="libs\minhook\hde\hde32.hpp" />
+    <ClInclude Include="libs\minhook\hde\hde64.hpp" />
+    <ClInclude Include="libs\minhook\hde\pstdint.hpp" />
+    <ClInclude Include="libs\minhook\hde\table32.hpp" />
+    <ClInclude Include="libs\minhook\hde\table64.hpp" />
+    <ClInclude Include="libs\minhook\MinHook.hpp" />
+    <ClInclude Include="libs\minhook\trampoline.hpp" />
     <ClInclude Include="libs\scanner\scanner.hpp" />
     <ClInclude Include="util\driver\driver.hpp" />
     <ClInclude Include="util\game\game.hpp" />

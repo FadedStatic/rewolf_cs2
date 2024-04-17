@@ -14,4 +14,15 @@ namespace overlay_util
 		}
 		return { 0, 0 };
 	}
+	long long presentmpo_new(void* a1, IDXGISwapChain* a2, unsigned a3, unsigned a4, int a5, void* a6, std::uint64_t* a7, std::uint64_t a8)
+	{
+		util::log("PresentMPO called...");
+		return presentmpo_orig(a1, a2, a3, a4, a5, a6, a7, a8);
+	}
+	long long presentdwm_new(void* a1, IDXGISwapChain* a2, unsigned a3, unsigned a4, const tagRECT* a5, unsigned a6, void* a7, unsigned a8, void* a9, unsigned a10)
+	{
+		util::log("PresentDWM called...");
+		return presentdwm_orig(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+	}
+
 }

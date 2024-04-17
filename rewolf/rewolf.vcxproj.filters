@@ -23,6 +23,12 @@
     <Filter Include="libs\scanner">
       <UniqueIdentifier>{19a5a947-e500-4dc8-a91c-24857d2866a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libs\minhook">
+      <UniqueIdentifier>{a35fdc6c-3f95-47c3-aae6-565224eb8020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\minhook\hde">
+      <UniqueIdentifier>{20226191-d991-4a42-9455-fc824c34522b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\game\game.cpp">
@@ -32,11 +38,26 @@
       <Filter>util\driver</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="libs\scanner\scanner.cpp">
+      <Filter>libs\scanner</Filter>
+    </ClCompile>
     <ClCompile Include="util\overlay\overlay.cpp">
       <Filter>util\overlay</Filter>
     </ClCompile>
-    <ClCompile Include="libs\scanner\scanner.cpp">
-      <Filter>libs\scanner</Filter>
+    <ClCompile Include="libs\minhook\buffer.cpp">
+      <Filter>libs\minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\hook.cpp">
+      <Filter>libs\minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\trampoline.cpp">
+      <Filter>libs\minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\hde\hde32.cpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\hde\hde64.cpp">
+      <Filter>libs\minhook\hde</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +78,30 @@
     </ClInclude>
     <ClInclude Include="libs\scanner\scanner.hpp">
       <Filter>libs\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\buffer.hpp">
+      <Filter>libs\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\MinHook.hpp">
+      <Filter>libs\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\trampoline.hpp">
+      <Filter>libs\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\hde\hde32.hpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\hde\hde64.hpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\hde\pstdint.hpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\hde\table32.hpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\hde\table64.hpp">
+      <Filter>libs\minhook\hde</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
