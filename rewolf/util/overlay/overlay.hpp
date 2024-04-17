@@ -5,13 +5,10 @@
 
 namespace overlay_util
 {
-	using presentmpo_ty = __int64(__fastcall*)(void* a1, IDXGISwapChain* a2, unsigned int a3, unsigned int a4, int a5, void* a6, std::uint64_t* a7, std::uint64_t a8);
-	using presentdwm_ty = __int64(__fastcall*)(void* a1, IDXGISwapChain* a2, unsigned int a3, unsigned int a4, const tagRECT* a5, unsigned int a6, void* a7, unsigned int a8, void* a9, unsigned int a10);
+	using presentmpo_ty = __int64(__fastcall*)(void* thisptr, IDXGISwapChain* a2, __int64 a3, char a4);
 
 	DECLSPEC_SELECTANY extern presentmpo_ty presentmpo_orig{};
-	DECLSPEC_SELECTANY extern presentdwm_ty presentdwm_orig{};
-	__int64 __fastcall presentmpo_new(void* a1, IDXGISwapChain* a2, unsigned int a3, unsigned int a4, int a5, void* a6, std::uint64_t* a7, std::uint64_t a8);
-	__int64 __fastcall presentdwm_new(void* a1, IDXGISwapChain* a2, unsigned int a3, unsigned int a4, const tagRECT* a5, unsigned int a6, void* a7, unsigned int a8, void* a9, unsigned int a10);
+	__int64 __fastcall presentmpo_new(void* thisptr, IDXGISwapChain* a2, __int64 a3, char a4);
 
 	struct overlay
 	{
@@ -26,7 +23,6 @@ namespace overlay_util
 				util::log("Initialized hook!");
 				MH_Initialize();
 				MH_CreateHook(reinterpret_cast<void*>(first), presentmpo_new, reinterpret_cast<LPVOID*>(&presentmpo_orig));
-				MH_CreateHook(reinterpret_cast<void*>(second), presentdwm_new, reinterpret_cast<LPVOID*>(&presentdwm_orig));
 				MH_EnableHook(nullptr);
 			}
 		}

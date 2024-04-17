@@ -23,6 +23,10 @@ namespace scanner_utils
 			while (scan_addr < (mbi.RegionSize + reinterpret_cast<std::uintptr_t>(mbi.BaseAddress)))
 			{
 				for (auto j = 0ull; j < mask.length(); j++) {
+					if (scan_addr - scan_base_address == 0xFEE5C)
+					{
+						util::log("{:02X} {:02X} {:02X}", *reinterpret_cast<uint8_t*>(scan_addr + j), static_cast<std::uint8_t>(aob[j]), *reinterpret_cast<uint8_t*>(scan_addr + j) == static_cast<std::uint8_t>(aob[j]));
+					}
 					if (mask[j] != '?' and (*reinterpret_cast<std::uint8_t*>(scan_addr + j) != static_cast<std::uint8_t>(aob[j])))
 						goto out_of_scope;
 				}
@@ -37,6 +41,8 @@ namespace scanner_utils
 		// fucking stupid compiler
 		if (ret.empty())
 			return std::nullopt;
+
+		util::log("YAY!");
 		return ret;
 	}
 

@@ -29,6 +29,9 @@
     <Filter Include="libs\minhook\hde">
       <UniqueIdentifier>{20226191-d991-4a42-9455-fc824c34522b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libs\imgui">
+      <UniqueIdentifier>{cd70e564-c994-4d89-ae10-f34a41961b75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\game\game.cpp">
@@ -58,6 +61,30 @@
     </ClCompile>
     <ClCompile Include="libs\minhook\hde\hde64.cpp">
       <Filter>libs\minhook\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_demo.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_draw.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_dx11.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_win32.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_stdlib.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_tables.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_widgets.cpp">
+      <Filter>libs\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +129,33 @@
     </ClInclude>
     <ClInclude Include="libs\minhook\hde\table64.hpp">
       <Filter>libs\minhook\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imconfig.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_impl_dx11.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_impl_win32.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_internal.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_stdlib.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imstb_rectpack.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imstb_textedit.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imstb_truetype.h">
+      <Filter>libs\imgui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
