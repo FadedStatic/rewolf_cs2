@@ -1,11 +1,12 @@
 #include "util/game/game.hpp"
 #include "util/driver/driver.hpp"
-
+#include "util/overlay/overlay.hpp"
 using MmGetPhysicalAddress_ty = std::uint64_t(__stdcall*)(PVOID);
 int main()
 {
 	util::log("Hi Mom!");
 
+	const auto overlay = overlay_util::overlay();
 	//auto drv = driver_util::driver();
 
 	//const auto mmgetphys = [&](std::uint64_t va) -> void* {

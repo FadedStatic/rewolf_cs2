@@ -17,3 +17,4 @@
 #include <winternl.h>
 #include <format>
 #include <winsvc.h>
+#include <psapi.h>
