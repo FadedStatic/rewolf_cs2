@@ -13,7 +13,7 @@ namespace overlay_util
 	DECLSPEC_SELECTANY extern presentmpo_ty presentmpo_orig{};
 	__int64 __fastcall presentmpo_new(void* thisptr, IDXGISwapChain* a2, __int64 a3, char a4);
 
-	static std::once_flag is_initialized;
+	static bool is_initialized{ false };
 	static ID3D11Device* d3d_device_ptr{};
 	static ID3D11DeviceContext* d3d_device_ctx_ptr{};
 	static IDXGISwapChain* swap_chain_ptr{};

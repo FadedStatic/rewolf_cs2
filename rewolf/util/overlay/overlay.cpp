@@ -4,7 +4,6 @@ namespace overlay_util
 {
 	std::pair < std::uintptr_t, std::uintptr_t> overlay::find_mpo_and_dwm()
 	{
-
 		const auto scan_results = scanner_utils::pattern_scan("dwmcore.dll", 
 			"\x48\x89\x69\x24\x69\x48\x89\x69\x24\x69\x57\x48\x83\xEC\x69\x8B\x99\x69\x69\x69\x69\x48\x8B\xF2\x48\x8B\xF9"
 				, "xx?x?xx?x?xxxx?xx????xxxxxx");
@@ -39,21 +38,24 @@ namespace overlay_util
 
 	void draw_overlay(IDXGISwapChain* swap_chain) {
 		swap_chain_ptr = swap_chain;
-
-		// i have NO IDEA why this works, but it does. do not touch this unless you are prepared for the literal shit storm that comes
-		util::log("WHY THE FUCK DOES THIS WORK??");
-		std::call_once(is_initialized, [] {init_imgui();});
-		ImGui_ImplDX11_NewFrame();
-		ImGui_ImplWin32_NewFrame();
-		ImGui::NewFrame();
-		ImGui::Begin("Hello, world!");
-		ImGui::Text("Hi mom!");
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		ImGui::End();
-		d3d_device_ctx_ptr->OMSetRenderTargets(1, &render_target_view_ptr, NULL);
-		ImGui::Render();
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-		ImGui::EndFrame();
+		if (!is_initialized)
+		{
+			is_initialized = true;
+			init_imgui();
+		}
+		else {
+			ImGui_ImplDX11_NewFrame();
+			ImGui_ImplWin32_NewFrame();
+			ImGui::NewFrame();
+			ImGui::Begin("Hello, world!");
+			ImGui::Text("Hi mom!");
+			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			ImGui::End();
+			d3d_device_ctx_ptr->OMSetRenderTargets(1, &render_target_view_ptr, NULL);
+			ImGui::Render();
+			ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+			ImGui::EndFrame();
+		}
 	}
 
 	long long presentmpo_new(void* thisptr, IDXGISwapChain* a2, __int64 a3, char a4)
