@@ -8,18 +8,18 @@ namespace driver_util {
 
         HKEY key{};
         if (const auto res = RegOpenKeyExA(HKEY_LOCAL_MACHINE, R"(HARDWARE\RESOURCEMAP\System Resources\Physical Memory)", 0, KEY_READ, &key); res != ERROR_SUCCESS)
-            return util::log("Failed to open registry key for physical memory ranges. Error code:  %d", res), std::nullopt;
+            return util::log("Failed to open registry key for physical memory ranges. Error code:  {:d}", res), std::nullopt;
 
         auto data_type{ 0ul };
         auto data_size{ 0ul };
 
         if (const auto res = RegQueryValueExA(key, ".Translated", nullptr, &data_type, nullptr, &data_size); res != ERROR_SUCCESS)
-            return util::log("Failed to query registry key for physical memory ranges. Error code:  %d", res), std::nullopt;
+            return util::log("Failed to query registry key for physical memory ranges. Error code:  {:d}", res), std::nullopt;
 
 
         const auto data = std::make_unique_for_overwrite<unsigned char[]>(data_size);
         if (const auto res = RegQueryValueExA(key, ".Translated", nullptr, &data_type, data.get(), &data_size); res != ERROR_SUCCESS)
-            return util::log("Failed to query registry key for physical memory ranges. Error code:  %d", res), std::nullopt;
+            return util::log("Failed to query registry key for physical memory ranges. Error code:  {:d}", res), std::nullopt;
 
         const auto descriptor_count = *reinterpret_cast<DWORD*>(data.get() + 16);
         auto mem_record = data.get() + 24;
@@ -42,12 +42,12 @@ namespace driver_util {
             phys_mem_ranges = get_physmem_ranges().value();
         }
         catch (const std::bad_optional_access& err) {
-            return util::log("Failed to retrieve physical memory ranges. Error message: %s", err.what()), 0;
+            return util::log("Failed to retrieve physical memory ranges. Error message: {}", err.what()), 0;
         }
 
         const auto nt_medium_va = GetProcAddress(this->ntoskrnl_cpy, this->medium_name);
         if (!nt_medium_va)
-            return util::log("Failed to retrieve %s virtual address. Error code: %d", this->medium_name, GetLastError()), 0;
+            return util::log("Failed to retrieve {} virtual address. Error code: {:d}", this->medium_name, GetLastError()), 0;
 
         const auto export_page_offset = reinterpret_cast<std::size_t>(nt_medium_va) % 0x1000;
 
@@ -58,13 +58,13 @@ namespace driver_util {
                 if (!read_bytes)
                     continue;
                 if (!std::memcmp(read_bytes.get(), this->medium_original_instructions, 24)) {
-                    util::log("%s physical address: %p", this->medium_name, page_cursor);
+                    util::log("{} physical address: {:p}", this->medium_name, page_cursor);
                     this->medium_pa = page_cursor;
                     return true;
                 }
             }
         }
-        util::log("Failed to find physical address of %s", this->medium_name);
+        util::log("Failed to find physical address of {}", this->medium_name);
         return false;
     }
 
@@ -106,6 +106,10 @@ namespace driver_util {
         return 0;
     }
 
+    std::size_t get_process_base_addr(const char* process)
+    {
+        ULONG retn;
+    }
 
     [[nodiscard]] bool driver::hook_medium(const char* target_nt_proc) {
         util::log("Hooking NT procedure...");
@@ -114,7 +118,7 @@ namespace driver_util {
         const auto nt_proc_va = reinterpret_cast<std::uint64_t>(GetProcAddress(this->ntoskrnl_cpy, target_nt_proc));
        
         if (!nt_proc_va)
-            return util::log("Failed to get %s address. Error code: %d", target_nt_proc, GetLastError()), false;
+            return util::log("Failed to get {} address. Error code: {:d}", target_nt_proc, GetLastError()), false;
 
         //this->kernel_handle is NOT the real kernel base. thats why we get the rva then add it to the real kernel base
         *reinterpret_cast<std::uint64_t*>(bytes + 2) = this->ntoskrnl_base_address + nt_proc_va - reinterpret_cast<std::uint64_t>(this->ntoskrnl_cpy);
