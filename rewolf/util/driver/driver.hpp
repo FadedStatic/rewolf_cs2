@@ -63,7 +63,7 @@ namespace driver_util {
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             } while (this->drv_handle == INVALID_HANDLE_VALUE);
 
-            util::log("Driver handle: %p", this->drv_handle);
+            util::log("Driver handle: {:p}", this->drv_handle);
             util::log("Opening handle to kernel...");
 
             this->ntoskrnl_cpy = LoadLibraryExA("ntoskrnl.exe", nullptr, DONT_RESOLVE_DLL_REFERENCES);
@@ -89,7 +89,7 @@ namespace driver_util {
             unsigned long bytes_returned{};
             if (const auto status = DeviceIoControl(drv_handle, ctl_codes::read_ctl, &rd_data, sizeof(write_data<buf_sz>{}), &rd_data, sizeof(write_data<buf_sz>{}), &bytes_returned, nullptr); !status) {
                 if (const auto err = GetLastError(); err != 998)
-                    util::log("Failed to read physical memory via IOCTL: %d", err);
+                    util::log("Failed to read physical memory via IOCTL: {:d}", err);
                 return nullptr;
             }
 
@@ -106,7 +106,7 @@ namespace driver_util {
             unsigned long bytes_returned{};
             const auto status = DeviceIoControl(drv_handle, ctl_codes::write_ctl, &wr_data, sizeof(write_data<buf_sz>{}), nullptr, sizeof(write_data<buf_sz>{}), & bytes_returned, nullptr);
             if (!status)
-                util::log("Failed to write physical memory via IOCTL. Error code:  %d", GetLastError());
+                util::log("Failed to write physical memory via IOCTL. Error code:  {:d}", GetLastError());
             return status;
         }
 

@@ -14,6 +14,24 @@
     <Filter Include="util\game">
       <UniqueIdentifier>{c90c870c-2327-495d-9668-e39baf6c4d6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="util\overlay">
+      <UniqueIdentifier>{a5b3ff7d-8f3c-4dc4-90a2-86a531f90529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{f4944be2-c067-40fb-8f44-5c3114a486b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\scanner">
+      <UniqueIdentifier>{19a5a947-e500-4dc8-a91c-24857d2866a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\minhook">
+      <UniqueIdentifier>{a35fdc6c-3f95-47c3-aae6-565224eb8020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\minhook\hde">
+      <UniqueIdentifier>{20226191-d991-4a42-9455-fc824c34522b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\imgui">
+      <UniqueIdentifier>{cd70e564-c994-4d89-ae10-f34a41961b75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\game\game.cpp">
@@ -23,6 +41,51 @@
       <Filter>util\driver</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="libs\scanner\scanner.cpp">
+      <Filter>libs\scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="util\overlay\overlay.cpp">
+      <Filter>util\overlay</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\buffer.cpp">
+      <Filter>libs\minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\hook.cpp">
+      <Filter>libs\minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\trampoline.cpp">
+      <Filter>libs\minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\hde\hde32.cpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\minhook\hde\hde64.cpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_demo.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_draw.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_dx11.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_win32.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_stdlib.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_tables.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_widgets.cpp">
+      <Filter>libs\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\game\game.hpp">
@@ -36,6 +99,63 @@
     </ClInclude>
     <ClInclude Include="include.hpp">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\overlay\overlay.hpp">
+      <Filter>util\overlay</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\scanner\scanner.hpp">
+      <Filter>libs\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\buffer.hpp">
+      <Filter>libs\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\MinHook.hpp">
+      <Filter>libs\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\trampoline.hpp">
+      <Filter>libs\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\hde\hde32.hpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\hde\hde64.hpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\hde\pstdint.hpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\hde\table32.hpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\minhook\hde\table64.hpp">
+      <Filter>libs\minhook\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imconfig.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_impl_dx11.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_impl_win32.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_internal.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_stdlib.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imstb_rectpack.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imstb_textedit.h">
+      <Filter>libs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imstb_truetype.h">
+      <Filter>libs\imgui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

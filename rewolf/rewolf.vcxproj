@@ -46,7 +46,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -121,6 +121,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <Optimization>MaxSpeed</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,14 +132,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="libs\imgui\imgui.cpp" />
+    <ClCompile Include="libs\imgui\imgui_demo.cpp" />
+    <ClCompile Include="libs\imgui\imgui_draw.cpp" />
+    <ClCompile Include="libs\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="libs\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="libs\imgui\imgui_stdlib.cpp" />
+    <ClCompile Include="libs\imgui\imgui_tables.cpp" />
+    <ClCompile Include="libs\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="libs\minhook\buffer.cpp" />
+    <ClCompile Include="libs\minhook\hde\hde32.cpp" />
+    <ClCompile Include="libs\minhook\hde\hde64.cpp" />
+    <ClCompile Include="libs\minhook\hook.cpp" />
+    <ClCompile Include="libs\minhook\trampoline.cpp" />
+    <ClCompile Include="libs\scanner\scanner.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="util\driver\driver.cpp" />
     <ClCompile Include="util\game\game.cpp" />
+    <ClCompile Include="util\overlay\overlay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include.hpp" />
+    <ClInclude Include="libs\imgui\imconfig.h" />
+    <ClInclude Include="libs\imgui\imgui.h" />
+    <ClInclude Include="libs\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="libs\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="libs\imgui\imgui_internal.h" />
+    <ClInclude Include="libs\imgui\imgui_stdlib.h" />
+    <ClInclude Include="libs\imgui\imstb_rectpack.h" />
+    <ClInclude Include="libs\imgui\imstb_textedit.h" />
+    <ClInclude Include="libs\imgui\imstb_truetype.h" />
+    <ClInclude Include="libs\minhook\buffer.hpp" />
+    <ClInclude Include="libs\minhook\hde\hde32.hpp" />
+    <ClInclude Include="libs\minhook\hde\hde64.hpp" />
+    <ClInclude Include="libs\minhook\hde\pstdint.hpp" />
+    <ClInclude Include="libs\minhook\hde\table32.hpp" />
+    <ClInclude Include="libs\minhook\hde\table64.hpp" />
+    <ClInclude Include="libs\minhook\MinHook.hpp" />
+    <ClInclude Include="libs\minhook\trampoline.hpp" />
+    <ClInclude Include="libs\scanner\scanner.hpp" />
     <ClInclude Include="util\driver\driver.hpp" />
     <ClInclude Include="util\game\game.hpp" />
+    <ClInclude Include="util\overlay\overlay.hpp" />
     <ClInclude Include="util\util.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

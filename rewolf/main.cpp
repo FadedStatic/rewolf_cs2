@@ -1,22 +1,42 @@
 #include "util/game/game.hpp"
 #include "util/driver/driver.hpp"
-
+#include "util/overlay/overlay.hpp"
 using MmGetPhysicalAddress_ty = std::uint64_t(__stdcall*)(PVOID);
 int main()
 {
-	auto drv = driver_util::driver();
+	util::log("Hi Mom!");
 
-	const auto mmgetphys = [&](std::uint64_t va) -> void* {
-		const auto res = drv.call_ntproc<std::uint64_t*, std::uint64_t>("MmGetPhysicalAddress", va);
-		if (!res.has_value())
-			return util::log("call failed"), nullptr;
-		return res.value();
-	};
+	const auto overlay = overlay_util::overlay();
+	//auto drv = driver_util::driver();
 
-	util::log("PA of rewolf.exe: %p", mmgetphys(reinterpret_cast<std::uint64_t>(GetModuleHandleA("rewolf.exe"))));
+	//const auto mmgetphys = [&](std::uint64_t va) -> void* {
+	//	const auto res = drv.call_ntproc<std::uint64_t*, std::uint64_t>("MmGetPhysicalAddress", va);
+	//	if (!res.has_value())
+	//		return util::log("call failed"), nullptr;
+	//	return res.value();
+	//};
 
-	std::cin.get();
+	//util::log("PA of rewolf.exe: %p", mmgetphys(reinterpret_cast<std::uint64_t>(GetModuleHandleA("rewolf.exe"))));
+
+	//std::cin.get();
 	return 0;
+}
+
+int __stdcall DllMain(
+	HINSTANCE dll_instance,
+	DWORD     reason_for_call,
+	LPVOID    reserved
+)
+{
+	switch (reason_for_call)
+	{
+	case DLL_PROCESS_ATTACH:
+		std::thread{ main }.detach();
+		break;
+	case DLL_PROCESS_DETACH:
+		break;
+	}
+	return 1;
 }
 
 // DO NOT FORGET TO STOP MEMLEAK
